@@ -7,8 +7,8 @@ from static.config import *
 world = World(10, pygame_facade)
 battle = Battle(5, 250, 60, pygame_facade)
 running = True
-trainers = [SmartTrainer("Данияр", pygame_facade, pygame_facade.load_image("static/images/trainer 1.png", TRAINER_SIZE), pygame_facade.load_image("static/images/trainer 11.png", TRAINER_SIZE), 10, 20),
-            SmartTrainer("Тяночка", pygame_facade, pygame_facade.load_image("static/images/trainer 2.png", TRAINER_SIZE), pygame_facade.load_image("static/images/trainer 2.png", TRAINER_SIZE), 600, 20, True)]
+trainers = [SmartTrainer("Данияр", pygame_facade, pygame_facade.load_image("game/static/images/trainer 1.png", TRAINER_SIZE), pygame_facade.load_image("game/static/images/trainer 11.png", TRAINER_SIZE), 10, 20),
+            SmartTrainer("Тяночка", pygame_facade, pygame_facade.load_image("game/static/images/trainer 2.png", TRAINER_SIZE), pygame_facade.load_image("game/static/images/trainer 2.png", TRAINER_SIZE), 600, 20, True)]
 flag = False
 while running:
     for event in pygame.event.get():

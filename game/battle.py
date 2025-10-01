@@ -59,8 +59,8 @@ class Battle:
 
     def update(self) -> None:
         if self.state == STARTED:
-            self.facade.draw_line(self.team1[0].x, self.team1[0].y + 5, self.team1[0].x + 50 * (self.team1[0].hp/100), self.team1[0].y + 5, (0, 255, 0), 5)
-            self.facade.draw_line(self.team2[0].x, self.team2[0].y + 5, self.team2[0].x + 50 * (self.team2[0].hp/100), self.team2[0].y + 5, (0, 255, 0), 5)
+            self.facade.draw_line(self.team1[0].x, self.team1[0].y + 5, self.team1[0].x + 50 * (self.team1[0].hp/100), self.team1[0].y + 5, (255 * (100 - self.team1[0].hp) / 100, 255 * self.team1[0].hp / 100, 0), 5)
+            self.facade.draw_line(self.team2[0].x, self.team2[0].y + 5, self.team2[0].x + 50 * (self.team2[0].hp/100), self.team2[0].y + 5, (255  * (100 - self.team2[0].hp) / 100, 255 * self.team2[0].hp / 100, 0), 5)
             self.trainer1.draw()
             self.trainer2.draw()
             nowTime = pygame.time.get_ticks() 
