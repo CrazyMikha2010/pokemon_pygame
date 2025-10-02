@@ -1,35 +1,49 @@
 import pygame
 
+
 class PygameFacade:
-    def __init__(self, screen_size: tuple, caption: str='Noname') -> None:
+    """
+    Facade for common pygame operations (drawing, image loading, etc).
+    """
+    def __init__(self, screen_size: tuple, caption: str = 'Noname') -> None:
+        """Initializes the pygame window and clock."""
         pygame.init()
         self.screen = pygame.display.set_mode(screen_size)
         pygame.display.set_caption(caption)
         self.clock = pygame.time.Clock()
 
-    def draw_circle(self, x: int, y: int, color, radius: int) -> None:
+    def draw_circle(self, x: int, y: int, color: tuple, radius: int) -> None:
+        """Draws a circle on the screen."""
         pygame.draw.circle(self.screen, color, (x, y), radius)
 
-    def draw_rectangle(self, x: int, y: int, width: int, height: int, color) -> None:
+    def draw_rectangle(self, x: int, y: int, width: int, height: int, color: tuple) -> None:
+        """Draws a rectangle on the screen."""
         pygame.draw.rect(self.screen, color, pygame.Rect(x, y, width, height))
 
     def draw_line(self, x1: int, y1: int, x2: int, y2: int, color, width: int) -> None:
+        """Draws a line on the screen."""
         pygame.draw.line(self.screen, color, (x1, y1), (x2, y2), width)
 
-    def load_image(self, path: str, size: tuple):
+    @staticmethod
+    def load_image(path: str, size: tuple) -> pygame.Surface:
+        """Loads and scales an image from the given path."""
         im = pygame.image.load(path).convert_alpha()
         return pygame.transform.scale(im, size)
 
-    def draw_image(self, x: int, y: int, im) -> None:
+    def draw_image(self, x: int, y: int, im: pygame.Surface) -> None:
+        """Draws an image at the given position."""
         self.screen.blit(im, (x, y))
 
     def update_screen(self) -> None:
+        """Updates the display to show all drawn elements."""
         pygame.display.flip()
 
     def clear_screen(self) -> None:
+        """Clears the screen to black."""
         self.screen.fill((0, 0, 0))
 
-    def draw_text(self, x: int, y: int, text: str, color, font_size=24) -> None:
+    def draw_text(self, x: int, y: int, text: str, color, font_size: int = 24) -> None:
+        """Draws text on the screen at the given position."""
         font = pygame.font.Font(None, font_size)
         text_surface = font.render(text, True, color)
         self.screen.blit(text_surface, (x, y))

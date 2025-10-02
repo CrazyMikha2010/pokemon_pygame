@@ -1,6 +1,7 @@
 import pygame
 import random
 from pyfacade import *
+from static.colors import *
 
 water_paths = ["game/static/images/" + path + ".png" for path in ["image", "image copy"]]
 fire_paths = ["game/static/images/" + path + ".png" for path in ["image copy 2", "image copy 3"]]
@@ -10,12 +11,6 @@ electric_paths = ["game/static/images/" + path + ".png" for path in ["image copy
 SCREEN_SIZE = (800, 500)
 POKEMON_SIZE = (50, 80)
 TRAINER_SIZE = (170, 500)
-
-RED = (255, 0, 0)
-YELLOW = (255, 255, 0)
-BLUE = (0, 0, 255)
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
 
 MAX_POKEMON_ATK = 5
 MAX_POKEMON_DF = 5

@@ -1,7 +1,9 @@
+import pygame
 from trainer import SmartTrainer
 from world import World
 from battle import Battle
-from static.config import *
+from static.config import TRAINER_SIZE, FPS, WHITE, pygame_facade
+
 
 
 world = World(10, pygame_facade)
