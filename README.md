@@ -1,4 +1,4 @@
-# Pokemon Pygame
+# Pokemon Pygame 
 
 A simple Pokemon battle game built with Python and Pygame. Catch, choose, and battle Pokemons with trainers in a graphical interface.
 
@@ -33,6 +33,17 @@ python main.py
 - **Mouse click**: Catch a Pokemon or add a new one
 - **Restart button**: Appears after a battle ends, click to restart
 - **Quit**: Close the window or press the close button
+
+## Testing
+I didn't have any problems while developing the game
+
+## OOP Patterns and methods I used
+- **facade**: Pygame facade with its most common commands
+- **static methods**: functions that don't require additional info within its class
+- **property**: getters and setters for pokemon properties
+- **singleton**: ensures only one instance of PygameFacade exists. I made it as decorator
+
+Overall I tried to optimize the code as much as possible and split it into files
 
 ## Project Structure
 ```
