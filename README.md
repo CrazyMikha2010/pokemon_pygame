@@ -2,7 +2,7 @@
 
 <img src="readme helper/0056Mankey.webp" width="200"/>
 
-[Русская версия README](readme helper/README_RUS.md)
+[Русская версия README](readme_helper/README_RUS.md)
 
 
 A simple Pokemon battle game built with Python and Pygame. Catch, choose, and battle Pokemons with trainers in a graphical interface.
