@@ -1,5 +1,3 @@
-import pygame
-import random
 from pyfacade import *
 from static.colors import *
 
