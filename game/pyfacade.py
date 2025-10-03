@@ -47,3 +47,10 @@ class PygameFacade:
         font = pygame.font.Font(None, font_size)
         text_surface = font.render(text, True, color)
         self.screen.blit(text_surface, (x, y))
+
+    def draw_button(self, x: int, y: int, width: int, height: int, text: str, button_color, text_color, font_size: int) -> pygame.Rect:
+        """Draws button and returns its hitbox."""
+        self.draw_rectangle(x, y, width, height, button_color)
+        self.draw_text(x + 2, y + 2, text, text_color, font_size)
+        self.update_screen()
+        return pygame.Rect(x, y, width, height)

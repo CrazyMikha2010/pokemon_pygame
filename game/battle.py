@@ -16,8 +16,9 @@ class Battle:
         self.facade = facade
         self.turn = 1
         self.state = NOT_STARTED
+        self.is_end: bool = False
         self.hit_circle = pygame.Surface(POKEMON_SIZE, pygame.SRCALPHA)
-
+        self.button_rect = None
 
     def draw(self, surface) -> None:
         """Draws the battle scene and highlights the current turn."""
@@ -109,12 +110,20 @@ class Battle:
         self.start(self.trainer1, self.trainer2)
 
     def end(self) -> None:
-        """Ends the battle."""
-        self.state = NOT_STARTED
-        if self.trainer1.wins > self.trainer2.wins:
-            self.trainer1.draw(True)
-        else:
-            self.trainer2.draw(True)
+        """Ends the battle and logs the winner to a file."""
+        self.facade.clear_screen()
+        winner = self.trainer1 if self.trainer1.wins > self.trainer2.wins else self.trainer2
+        winner.draw(True)
+        self.button_rect = self.facade.draw_button(200, 300, 150, 50, 'Заново', (0, 128, 0), (255, 255, 255), 60)
+        self.save_log(winner)
+
+    def save_log(self, winner: 'Trainer') -> None:
+        """Saves the battle winner to a log file."""
+        import os
+        log_dir = 'game/logs'
+        os.makedirs(log_dir, exist_ok=True)
+        with open(os.path.join(log_dir, 'battle_winner.txt'), 'a', encoding='utf-8') as log_file:
+            log_file.write(f'Winner: {winner.name}\n')
 
     def started(self) -> bool:
         """Returns True if the battle has started."""

@@ -14,8 +14,8 @@ class Pokemon:
         self.blackout: bool = False
         self.x = x
         self.y = y
-        self.vx: int = random.randint(1, 10)
-        self.vy: int = random.randint(1, 10)
+        self.vx: int = random.randint(-10, 10)
+        self.vy: int = random.randint(-10, 10)
         self.im = im
         self.mask = pygame.mask.from_surface(im)
         self.ischosen: bool = False

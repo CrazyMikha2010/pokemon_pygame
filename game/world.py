@@ -1,7 +1,9 @@
 import random
 from static.config import SCREEN_SIZE, TRAINER_SIZE
+from static.colors import WHITE
 from pokemon import WaterPokemon, FirePokemon, GrassPokemon, ElectricPokemon
 from trainer import SmartTrainer
+from typing import List
 
 
 class World:
@@ -11,11 +13,11 @@ class World:
     def __init__(self, n_pok: int, facade: 'PygameFacade') -> None:
         self.facade = facade
         self.n_pok = n_pok
-        self.pokemons: list = []
+        self.pokemons: List['Pokemon'] = []
         self._pokemons_types = [WaterPokemon, FirePokemon, GrassPokemon, ElectricPokemon]
         self._generate_pokemons()
-        self.trainer1 = SmartTrainer("Данияр", facade, facade.load_image("game/static/images/trainer 1.png", TRAINER_SIZE), facade.load_image("game/static/images/trainer 11.png", TRAINER_SIZE), 10, 20)
-        self.trainer2 = SmartTrainer("Тяночка", facade, facade.load_image("game/static/images/trainer 2.png", TRAINER_SIZE), facade.load_image("game/static/images/trainer 2.png", TRAINER_SIZE), 600, 20, True)
+        self.trainer1: SmartTrainer = SmartTrainer("Данияр", facade, facade.load_image("game/static/images/trainer 1.png", TRAINER_SIZE), facade.load_image("game/static/images/trainer 11.png", TRAINER_SIZE), 10, 20)
+        self.trainer2: SmartTrainer = SmartTrainer("Тяночка", facade, facade.load_image("game/static/images/trainer 2.png", TRAINER_SIZE), facade.load_image("game/static/images/trainer 2.png", TRAINER_SIZE), 600, 20, True)
 
     def _generate_pokemons(self) -> None:
         """Initializes Pokemons in the world."""
@@ -34,9 +36,12 @@ class World:
         self.pokemons.append(pokemon_cls(name, self.facade, x, y))
 
     def draw(self) -> None:
-        """Draws all Pokemons in the world."""
+        """Draws all Pokemons and Trainers in the world."""
+        self.facade.draw_text(250, 10, f'Выбирает: {self.trainer1.name if self.trainer1.ischoosing else self.trainer2.name}', WHITE, 50)
         for pokemon in self.pokemons:
             pokemon.draw()
+        self.trainer1.draw()
+        self.trainer2.draw()
 
     def update(self) -> None:
         """Updates all Pokemons' positions."""
