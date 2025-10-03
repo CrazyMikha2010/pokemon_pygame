@@ -54,6 +54,7 @@ pokemon_pygame/
 ├── game/
 │   ├── main.py
 │   ├── battle.py
+|   |── handler.py
 │   ├── world.py
 │   ├── trainer.py
 │   ├── pokemon.py
