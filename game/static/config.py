@@ -1,5 +1,6 @@
 from pyfacade import *
 from static.colors import *
+import random
 
 water_paths = ["game/static/images/" + path + ".png" for path in ["image", "image copy"]]
 fire_paths = ["game/static/images/" + path + ".png" for path in ["image copy 2", "image copy 3"]]
