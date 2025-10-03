@@ -5,7 +5,7 @@ class Trainer:
     """
     Represents a Pokemon trainer.
     """
-    def __init__(self, name: str, facade, im1, im2, x: int, y: int, ischoosing: bool = False) -> None:
+    def __init__(self, name: str, facade: 'PygameFacade', im1, im2, x: int, y: int, ischoosing: bool = False) -> None:
         self.wins: int = 0
         self.box: List['Pokemon'] = []
         self.name = name

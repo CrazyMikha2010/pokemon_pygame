@@ -5,7 +5,7 @@ class Pokemon:
     """
     Base class for all Pokemon types.
     """
-    def __init__(self, name: str, facade, im, x: int, y: int) -> None:
+    def __init__(self, name: str, facade: 'PygameFacade', im, x: int, y: int) -> None:
         self.facade = facade
         self.hp: int = 100
         self.name = name

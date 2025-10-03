@@ -1,4 +1,3 @@
-
 import pygame
 from static.config import POKEMON_SIZE
 NOT_STARTED = -1
@@ -10,7 +9,7 @@ class Battle:
     """
     Handles the battle logic between two trainers and their teams.
     """
-    def __init__(self, n: int, x: int, y: int, facade) -> None:
+    def __init__(self, n: int, x: int, y: int, facade: 'PygameFacade') -> None:
         self.n = n
         self.x = x
         self.y = y

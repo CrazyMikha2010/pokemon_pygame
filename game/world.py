@@ -1,4 +1,3 @@
-
 import random
 from static.config import SCREEN_SIZE
 from pokemon import WaterPokemon, FirePokemon, GrassPokemon, ElectricPokemon
@@ -8,7 +7,7 @@ class World:
     """
     Represents the game world containing Pokemons.
     """
-    def __init__(self, n_pok: int, facade) -> None:
+    def __init__(self, n_pok: int, facade: 'PygameFacade') -> None:
         self.facade = facade
         self.n_pok = n_pok
         self.pokemons: list = []
