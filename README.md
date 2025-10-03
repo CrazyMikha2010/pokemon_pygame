@@ -1,6 +1,6 @@
 # Pokemon Pygame 
 
-<img src="readme helper/0056Mankey.webp" width="200"/>
+<img src="readme_helper/0056Mankey.webp" width="200"/>
 
 [Русская версия README](readme_helper/README_RUS.md)
 
@@ -80,6 +80,6 @@ MIT License
 
 ## Pics
 
-<img src="readme helper/Screenshot 2025-10-03 at 16.34.19.png" width="600"/>
-<img src="readme helper/Screenshot 2025-10-03 at 16.34.44.png" width="600"/>
-<img src="readme helper/Screenshot 2025-10-03 at 16.35.00.png" width="600"/>
+<img src="readme_helper/Screenshot 2025-10-03 at 16.34.19.png" width="600"/>
+<img src="readme_helper/Screenshot 2025-10-03 at 16.34.44.png" width="600"/>
+<img src="readme_helper/Screenshot 2025-10-03 at 16.35.00.png" width="600"/>
