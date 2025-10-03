@@ -21,7 +21,14 @@ class Battle:
         self.button_rect = None
 
     def draw(self, surface) -> None:
-        """Draws the battle scene and highlights the current turn."""
+        """
+        Draws the battle scene and highlights the current turn.
+
+        Args:
+            surface: The pygame surface to draw on.
+        Returns:
+            None
+        """
         if self.state == NOT_STARTED:
             return
         for pokemon in self.team1 + self.team2:
@@ -39,7 +46,15 @@ class Battle:
 
 
     def start(self, trainer1: 'SmartTrainer', trainer2: 'SmartTrainer') -> None:
-        """Starts a new battle between two trainers."""
+        """
+        Starts a new battle between two trainers.
+
+        Args:
+            trainer1: The first trainer.
+            trainer2: The second trainer.
+        Returns:
+            None
+        """
         if self.state == NOT_STARTED:
             self.trainer1 = trainer1
             self.trainer2 = trainer2
@@ -66,7 +81,14 @@ class Battle:
 
 
     def update(self) -> None:
-        """Updates the battle state."""
+        """
+        Updates the battle state.
+
+        Args:
+            None
+        Returns:
+            None
+        """
         if self.state == STARTED:
             self.facade.draw_line(self.team1[0].x, self.team1[0].y + 5, self.team1[0].x + 50 * (self.team1[0].hp/100), self.team1[0].y + 5, (255 * (100 - self.team1[0].hp) / 100, 255 * self.team1[0].hp / 100, 0), 5)
             self.facade.draw_line(self.team2[0].x, self.team2[0].y + 5, self.team2[0].x + 50 * (self.team2[0].hp/100), self.team2[0].y + 5, (255  * (100 - self.team2[0].hp) / 100, 255 * self.team2[0].hp / 100, 0), 5)
@@ -95,7 +117,14 @@ class Battle:
                 self.turn = 1
 
     def finish(self, result: int) -> None:
-        """Handles the end of a battle round."""
+        """
+        Handles the end of a battle round.
+
+        Args:
+            result: The result of the battle (1 or 2).
+        Returns:
+            None
+        """
         self.state = NOT_STARTED
         if result == 1:
             self.trainer1.wins += 1
@@ -110,7 +139,14 @@ class Battle:
         self.start(self.trainer1, self.trainer2)
 
     def end(self) -> None:
-        """Ends the battle and logs the winner to a file."""
+        """
+        Ends the battle and logs the winner to a file.
+
+        Args:
+            None
+        Returns:
+            None
+        """
         self.facade.clear_screen()
         winner = self.trainer1 if self.trainer1.wins > self.trainer2.wins else self.trainer2
         winner.draw(True)
@@ -118,7 +154,14 @@ class Battle:
         self.save_log(winner)
 
     def save_log(self, winner: 'Trainer') -> None:
-        """Saves the battle winner to a log file."""
+        """
+        Saves the battle winner to a log file.
+
+        Args:
+            winner: The winning Trainer object.
+        Returns:
+            None
+        """
         import os
         log_dir = 'game/logs'
         os.makedirs(log_dir, exist_ok=True)
@@ -126,5 +169,12 @@ class Battle:
             log_file.write(f'Winner: {winner.name}\n')
 
     def started(self) -> bool:
-        """Returns True if the battle has started."""
+        """
+        Returns True if the battle has started.
+
+        Args:
+            None
+        Returns:
+            bool: True if the battle has started, False otherwise.
+        """
         return self.state == STARTED

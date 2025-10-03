@@ -6,6 +6,18 @@ class Pokemon:
     Base class for all Pokemon types.
     """
     def __init__(self, name: str, facade: 'PygameFacade', im, x: int, y: int) -> None:
+        """
+        Initializes a Pokemon instance.
+
+        Args:
+            name (str): The name of the Pokemon.
+            facade (PygameFacade): The pygame facade.
+            im: The image surface for the Pokemon.
+            x (int): X position.
+            y (int): Y position.
+        Returns:
+            None
+        """
         self.facade = facade
         self.hp: int = 100
         self.name = name
@@ -24,7 +36,14 @@ class Pokemon:
 
     @property
     def hp(self) -> int:
-        """Returns the current HP."""
+        """
+        Returns the current HP.
+
+        Args:
+            None
+        Returns:
+            int: Current HP value.
+        """
         return self.__hp
 
     @hp.setter
@@ -33,7 +52,14 @@ class Pokemon:
 
     @property
     def name(self) -> str:
-        """Returns the Pokemon's name."""
+        """
+        Returns the Pokemon's name.
+
+        Args:
+            None
+        Returns:
+            str: Pokemon name.
+        """
         return self.__name
 
     @name.setter
@@ -42,7 +68,14 @@ class Pokemon:
 
     @property
     def atk(self) -> int:
-        """Returns the attack value."""
+        """
+        Returns the attack value.
+
+        Args:
+            None
+        Returns:
+            int: Attack value.
+        """
         return self.__atk
 
     @atk.setter
@@ -51,7 +84,14 @@ class Pokemon:
 
     @property
     def df(self) -> int:
-        """Returns the defense value."""
+        """
+        Returns the defense value.
+
+        Args:
+            None
+        Returns:
+            int: Defense value.
+        """
         return self.__df
 
     @df.setter
@@ -60,19 +100,32 @@ class Pokemon:
 
 
     def attack(self, other: 'Pokemon', mult: int = 1, div: float = 1) -> None:
-        """Attacks another Pokemon."""
+        """
+        Attacks another Pokemon.
+
+        Args:
+            other (Pokemon): The target Pokemon.
+            mult (int): Attack multiplier.
+            div (float): Defense divisor.
+        Returns:
+            None
+        """
         if self.hp <= 0 or other.hp <= 0:
             return
         damage = max(self.atk * mult - int(other.df * div), 1)
         other.hp -= damage
 
     def draw(self) -> None:
-        """Draws the Pokemon on the screen."""
+        """
+        Draws the Pokemon on the screen.
+        """
         if not self.ischosen:
             self.facade.draw_image(self.x, self.y, self.im)
     
     def move(self) -> None:
-        """Moves the Pokemon within the screen bounds."""
+        """
+        Moves the Pokemon within the screen bounds.
+        """
         if self.ischosen:
             return
         self.x += self.vx
@@ -86,36 +139,118 @@ class Pokemon:
 
 
 class WaterPokemon(Pokemon):
-    """Water type Pokemon."""
+    """
+    Water type Pokemon.
+    """
     def __init__(self, name: str, facade, x: int, y: int) -> None:
+        """
+        Initializes a Water type Pokemon.
+
+        Args:
+            name (str): The name of the Pokemon.
+            facade (PygameFacade): The pygame facade.
+            x (int): X position.
+            y (int): Y position.
+        Returns:
+            None
+        """
         super().__init__(name, facade, facade.load_image(random.choice(water_paths), POKEMON_SIZE), x, y)
 
     def attack(self, other: 'Pokemon', mult: int = 1, div: float = 1) -> None:
+        """
+        Attacks another Pokemon, with bonus against Fire type.
+
+        Args:
+            other (Pokemon): The target Pokemon.
+            mult (int): Attack multiplier.
+            div (float): Defense divisor.
+        Returns:
+            None
+        """
         mult = 1 + 2 * isinstance(other, FirePokemon)
         return super().attack(other, mult=mult)
 
 
 class FirePokemon(Pokemon):
-    """Fire type Pokemon."""
+    """
+    Fire type Pokemon.
+    """
     def __init__(self, name: str, facade, x: int, y: int) -> None:
+        """
+        Initializes a Fire type Pokemon.
+
+        Args:
+            name (str): The name of the Pokemon.
+            facade (PygameFacade): The pygame facade.
+            x (int): X position.
+            y (int): Y position.
+        Returns:
+            None
+        """
         super().__init__(name, facade, facade.load_image(random.choice(fire_paths), POKEMON_SIZE), x, y)
 
 
 class GrassPokemon(Pokemon):
-    """Grass type Pokemon."""
+    """
+    Grass type Pokemon.
+    """
     def __init__(self, name: str, facade, x: int, y: int) -> None:
+        """
+        Initializes a Grass type Pokemon.
+
+        Args:
+            name (str): The name of the Pokemon.
+            facade (PygameFacade): The pygame facade.
+            x (int): X position.
+            y (int): Y position.
+        Returns:
+            None
+        """
         super().__init__(name, facade, facade.load_image(random.choice(grass_paths), POKEMON_SIZE), x, y)
 
     def attack(self, other: 'Pokemon', mult: int = 1, div: float = 1) -> None:
+        """
+        Attacks another Pokemon, with penalty against Fire type.
+
+        Args:
+            other (Pokemon): The target Pokemon.
+            mult (int): Attack multiplier.
+            div (float): Defense divisor.
+        Returns:
+            None
+        """
         div = 1 + 1 * isinstance(other, FirePokemon)
         return super().attack(other, div=1/div)
 
 
 class ElectricPokemon(Pokemon):
-    """Electric type Pokemon."""
+    """
+    Electric type Pokemon.
+    """
     def __init__(self, name: str, facade, x: int, y: int) -> None:
+        """
+        Initializes an Electric type Pokemon.
+
+        Args:
+            name (str): The name of the Pokemon.
+            facade (PygameFacade): The pygame facade.
+            x (int): X position.
+            y (int): Y position.
+        Returns:
+            None
+        """
         super().__init__(name, facade, facade.load_image(random.choice(electric_paths), POKEMON_SIZE), x, y)
 
     def attack(self, other: 'Pokemon', mult: int = 1, div: float = 1) -> None:
+        """
+        Attacks another Pokemon, with penalty against Water type.
+
+        Args:
+            other (Pokemon): The target Pokemon.
+            mult (int): Attack multiplier.
+            div (float): Defense divisor.
+        Returns:
+            None
+        """
         div = 1 * (not isinstance(other, WaterPokemon))
         return super().attack(other, div=div)

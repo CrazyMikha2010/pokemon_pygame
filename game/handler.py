@@ -5,9 +5,15 @@ from static.config import FPS, pygame_facade
 
 class EventHandler:
     def __init__(self) -> None:
+        """
+        Initializes the EventHandler and resets the game state.
+        """
         self._reset()
 
     def _reset(self) -> None:
+        """
+        Resets the world, battle, and game flags.
+        """
         self.world = World(10, pygame_facade)
         self.battle = Battle(5, 250, 60, pygame_facade)
         self.running = True
@@ -15,6 +21,9 @@ class EventHandler:
         self.show_restart = False
 
     def handle_input(self) -> None:
+        """
+        Handles user input events (mouse, quit, restart).
+        """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -26,9 +35,20 @@ class EventHandler:
                         self.world.add(event.pos)
 
     def _is_catching(self) -> bool:
+        """
+        Checks if trainers are still catching Pokemons.
+
+        Args:
+            None
+        Returns:
+            bool: True if catching, False otherwise.
+        """
         return not len(self.world.trainer1.box) >= 5 or not len(self.world.trainer2.box) >= 5
     
     def update(self) -> None:
+        """
+        Updates the game state, drawing and progressing world/battle.
+        """
         if not self.show_restart: pygame_facade.clear_screen()
         if self._is_catching() and not self.flag:
             self.world.draw()

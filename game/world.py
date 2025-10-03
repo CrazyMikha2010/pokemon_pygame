@@ -11,6 +11,15 @@ class World:
     Represents the game world containing Pokemons.
     """
     def __init__(self, n_pok: int, facade: 'PygameFacade') -> None:
+        """
+        Initializes the World instance.
+
+        Args:
+            n_pok (int): Number of Pokemons to generate.
+            facade (PygameFacade): The pygame facade.
+        Returns:
+            None
+        """
         self.facade = facade
         self.n_pok = n_pok
         self.pokemons: List['Pokemon'] = []
@@ -20,7 +29,9 @@ class World:
         self.trainer2: SmartTrainer = SmartTrainer("Тяночка", facade, facade.load_image("game/static/images/trainer 2.png", TRAINER_SIZE), facade.load_image("game/static/images/trainer 2.png", TRAINER_SIZE), 600, 20, True)
 
     def _generate_pokemons(self) -> None:
-        """Initializes Pokemons in the world."""
+        """
+        Initializes Pokemons in the world.
+        """
         for i in range(self.n_pok):
             pokemon_cls = random.choice(self._pokemons_types)
             name = f'test{i + 1}'
@@ -29,14 +40,23 @@ class World:
             self.pokemons.append(pokemon_cls(name, self.facade, x, y))
 
     def add(self, event: tuple) -> None:
-        """Adds a new Pokemon at the given event position."""
+        """
+        Adds a new Pokemon at the given event position.
+
+        Args:
+            event (tuple): Position (x, y) to add the Pokemon.
+        Returns:
+            None
+        """
         pokemon_cls = random.choice(self._pokemons_types)
         name = f'test{len(self.pokemons) + 1}'
         x, y = event
         self.pokemons.append(pokemon_cls(name, self.facade, x, y))
 
     def draw(self) -> None:
-        """Draws all Pokemons and Trainers in the world."""
+        """
+        Draws all Pokemons and Trainers in the world.
+        """
         self.facade.draw_text(250, 10, f'Выбирает: {self.trainer1.name if self.trainer1.ischoosing else self.trainer2.name}', WHITE, 50)
         for pokemon in self.pokemons:
             pokemon.draw()
@@ -44,12 +64,26 @@ class World:
         self.trainer2.draw()
 
     def update(self) -> None:
-        """Updates all Pokemons' positions."""
+        """
+        Updates all Pokemons' positions.
+
+        Args:
+            None
+        Returns:
+            None
+        """
         for pokemon in self.pokemons:
             pokemon.move()
 
     def catch_pokemon(self, pos: tuple) -> None:
-        """Attempts to catch a Pokemon at the given position."""
+        """
+        Attempts to catch a Pokemon at the given position.
+
+        Args:
+            pos (tuple): Position (x, y) to catch the Pokemon.
+        Returns:
+            bool: True if a Pokemon was caught, False otherwise.
+        """
         flag: bool = False
         for pokemon in self.pokemons:
             rect = pokemon.im.get_rect()

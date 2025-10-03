@@ -6,6 +6,20 @@ class Trainer:
     Represents a Pokemon trainer.
     """
     def __init__(self, name: str, facade: 'PygameFacade', im1, im2, x: int, y: int, ischoosing: bool = False) -> None:
+        """
+        Initializes a Trainer instance.
+
+        Args:
+            name (str): Trainer's name.
+            facade (PygameFacade): The pygame facade.
+            im1: Main image.
+            im2: Alternate image.
+            x (int): X position.
+            y (int): Y position.
+            ischoosing (bool): If trainer is currently choosing.
+        Returns:
+            None
+        """
         self.wins: int = 0
         self.box: List['Pokemon'] = []
         self.name = name
@@ -17,18 +31,39 @@ class Trainer:
         self.ischoosing = ischoosing
 
     def add(self, pokemon: 'Pokemon') -> None:
-        """Adds a Pokemon to the trainer's box."""
+        """
+        Adds a Pokemon to the trainer's box.
+
+        Args:
+            pokemon (Pokemon): The Pokemon to add.
+        Returns:
+            None
+        """
         self.box.append(pokemon)
 
     def best_team(self, n: int) -> List['Pokemon']:
-        """Selects the best team of n Pokemons from the box."""
+        """
+        Selects the best team of n Pokemons from the box.
+
+        Args:
+            n (int): Number of Pokemons to select.
+        Returns:
+            List[Pokemon]: List of selected Pokemons.
+        """
         team = []
         for _ in range(min(n, len(self.box))):
             team.append(self.box.pop())
         return team
     
     def draw(self, has_won: bool = False) -> None:
-        """Draws the trainer and their status."""
+        """
+        Draws the trainer and their status.
+
+        Args:
+            has_won (bool): If the trainer has won.
+        Returns:
+            None
+        """
         if has_won:
             self.x = SCREEN_SIZE[0] // 2 - self.im1.get_width() // 2
             self.y = 50
@@ -41,7 +76,14 @@ class Trainer:
         self.facade.draw_image(self.x, self.y, self.im2 if self.ischoosing else self.im1)
 
     def _team_status(self) -> str:
-        """Returns a string describing the team status."""
+        """
+        Returns a string describing the team status.
+
+        Args:
+            None
+        Returns:
+            str: Team status string.
+        """
         n = len(self.box)
         if n == 0:
             return "Нет покемонов в команде"
@@ -57,6 +99,14 @@ class SmartTrainer(Trainer):
     A smarter trainer that picks the best team based on attack and defense.
     """
     def best_team(self, n: int) -> List['Pokemon']:
+        """
+        Selects the best team of n Pokemons based on attack and defense.
+
+        Args:
+            n (int): Number of Pokemons to select.
+        Returns:
+            List[Pokemon]: List of selected Pokemons.
+        """
         self.box.sort(key=lambda x: x.atk * 2 + x.df)
         team = []
         for _ in range(min(n, len(self.box))):
