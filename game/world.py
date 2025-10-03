@@ -1,6 +1,7 @@
 import random
-from static.config import SCREEN_SIZE
+from static.config import SCREEN_SIZE, TRAINER_SIZE
 from pokemon import WaterPokemon, FirePokemon, GrassPokemon, ElectricPokemon
+from trainer import SmartTrainer
 
 
 class World:
@@ -13,6 +14,8 @@ class World:
         self.pokemons: list = []
         self._pokemons_types = [WaterPokemon, FirePokemon, GrassPokemon, ElectricPokemon]
         self._generate_pokemons()
+        self.trainer1 = SmartTrainer("Данияр", facade, facade.load_image("game/static/images/trainer 1.png", TRAINER_SIZE), facade.load_image("game/static/images/trainer 11.png", TRAINER_SIZE), 10, 20)
+        self.trainer2 = SmartTrainer("Тяночка", facade, facade.load_image("game/static/images/trainer 2.png", TRAINER_SIZE), facade.load_image("game/static/images/trainer 2.png", TRAINER_SIZE), 600, 20, True)
 
     def _generate_pokemons(self) -> None:
         """Initializes Pokemons in the world."""
@@ -40,11 +43,18 @@ class World:
         for pokemon in self.pokemons:
             pokemon.move()
 
-    def catch_pokemon(self, pos: tuple) -> object | None:
+    def catch_pokemon(self, pos: tuple) -> None:
         """Attempts to catch a Pokemon at the given position."""
+        flag: bool = False
         for pokemon in self.pokemons:
             rect = pokemon.im.get_rect()
             if rect.left + pokemon.x <= pos[0] <= rect.right + pokemon.x and rect.top + pokemon.y <= pos[1] <= rect.bottom + pokemon.y:
                 self.pokemons.remove(pokemon)
-                return pokemon
-        return None
+                if self.trainer1.ischoosing:
+                    self.trainer1.add(pokemon)
+                else:
+                    self.trainer2.add(pokemon)
+                flag = True
+                break
+        self.trainer1.ischoosing, self.trainer2.ischoosing = self.trainer2.ischoosing, self.trainer1.ischoosing
+        return flag
